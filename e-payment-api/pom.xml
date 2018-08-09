@@ -1,0 +1,275 @@
+<?xml version="1.0"?>
+<project
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+	xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.zbensoft</groupId>
+		<artifactId>e-payment</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>e-payment-api</artifactId>
+	<name>e-payment-api</name>
+	<url>http://maven.apache.org</url>
+	<properties>
+		<jjwt.version>0.6.0</jjwt.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+	</properties>
+	<dependencies>
+	<!-- 使用内部tomcat直接运行需要增加 Start-->
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-web</artifactId>
+		</dependency>
+	<!-- 使用内部tomcat直接运行需要增加 Start-->
+		
+		<!-- tomcat 部署增加 Start -->
+		<!--2 <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-web</artifactId>
+		    <exclusions>
+		        <exclusion>
+		            <groupId>org.springframework.boot</groupId>
+		            <artifactId>spring-boot-starter-tomcat</artifactId>
+		        </exclusion>
+		    </exclusions>
+		</dependency>
+		
+		<dependency>
+		    <groupId>org.apache.tomcat</groupId>
+		    <artifactId>tomcat-servlet-api</artifactId>
+		    <version>8.0.36</version>
+		    <scope>provided</scope>
+		</dependency> 2-->
+		<!-- tomcat 部署增加  End-->
+		
+		<!-- 使用内部tomcat直接运行需要增加 Start-->
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-tomcat</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+	      <!-- 使用内部tomcat直接运行需要增加 End-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+		</dependency>
+
+		<!-- MySQL -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+			<version>5.1.41</version>
+		</dependency>
+
+		<dependency>
+			<groupId>com.zbensoft</groupId>
+			<artifactId>e-payment-db</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.zbensoft</groupId>
+			<artifactId>e-payment-common</artifactId>
+			<version>0.0.1-SNAPSHOT</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger2</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		<dependency>
+			<groupId>io.springfox</groupId>
+			<artifactId>springfox-swagger-ui</artifactId>
+			<version>2.2.2</version>
+		</dependency>
+		
+		<!-- mybatis分页依赖 -->
+		<dependency>  
+		    <groupId>com.github.pagehelper</groupId>  
+		    <artifactId>pagehelper</artifactId>  
+		    <version>4.1.0</version>
+		</dependency>
+		<!-- https://mvnrepository.com/artifact/com.github.jsqlparser/jsqlparser -->
+		<dependency>
+		    <groupId>com.github.jsqlparser</groupId>
+		    <artifactId>jsqlparser</artifactId>
+		    <version>1.0</version>
+		</dependency>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-security</artifactId>
+		</dependency>
+		<dependency>
+	      <groupId>io.jsonwebtoken</groupId>
+	      <artifactId>jjwt</artifactId>
+	      <version>${jjwt.version}</version>
+	    </dependency>
+	    
+	    <dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-redis</artifactId>
+		    <version>1.4.7.RELEASE</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.alibaba</groupId>
+			<artifactId>fastjson</artifactId>
+			<version>1.2.16</version>
+		</dependency>
+		
+         <dependency>
+	      <groupId>junit</groupId>
+	      <artifactId>junit</artifactId>
+	      <version>4.12</version>
+	    </dependency>
+	    <dependency>
+	      <groupId>com.zbensoft</groupId>
+	      <artifactId>e-payment-core</artifactId>
+	      <version>0.0.3-SNAPSHOT</version>
+	      <!--  
+	      <scope>system</scope>
+	      <systemPath>${project.basedir}/lib/e-payment-core-0.0.3-SNAPSHOT.jar</systemPath>-->
+	    </dependency>
+	    <dependency>
+	      <groupId>com.zbensoft</groupId>
+	      <artifactId>zbensoft-license</artifactId>
+	      <version>1.0</version>
+	      <!-- 
+	      <scope>system</scope>
+	      <systemPath>${project.basedir}/lib/zbensoft-license-1.0.jar</systemPath> -->
+	    </dependency>
+		<!-- 任务调度quartz -->
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz</artifactId>
+			<version>2.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.quartz-scheduler</groupId>
+			<artifactId>quartz-jobs</artifactId>
+			<version>2.2.3</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-lang3</artifactId>
+			<version>3.4</version>
+		</dependency>
+		<dependency>  
+            		<groupId>org.springframework.boot</groupId>  
+            		<artifactId>spring-boot-starter-amqp</artifactId>  
+        </dependency>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-mail</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>org.springframework.boot</groupId>
+		    <artifactId>spring-boot-starter-actuator</artifactId>
+		</dependency>
+		<dependency>
+		    <groupId>com.jcraft</groupId>
+		    <artifactId>jsch</artifactId>
+		    <version>0.1.54</version>
+		</dependency>
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.5</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.sun.jna</groupId>
+		    <artifactId>jna</artifactId>
+		    <version>3.0.9</version>
+		</dependency>
+		<dependency>
+		    <groupId>com.alibaba</groupId>
+		    <artifactId>druid</artifactId>
+		    <version>1.1.5</version>
+		</dependency>
+		
+	    <dependency>
+	        <groupId>org.apache.httpcomponents</groupId>
+	        <artifactId>httpclient</artifactId>
+	        <version>4.3.1</version>
+	    </dependency>
+	    
+	</dependencies>
+	<build>
+     <!--<resources>
+            <resource>
+                <filtering>false</filtering>
+                <directory>src/main/resources</directory>
+                <excludes>
+                    <exclude>conf/prod/*</exclude>
+                    <exclude>application.properties</exclude>
+                    <exclude>logback.xml</exclude>
+                    <exclude>quartz.properties</exclude>
+                    <exclude>email-alarm.properties</exclude>
+                    <exclude>email-epay.properties</exclude>
+                </excludes>
+            </resource>
+            <resource>
+                <directory>src/main/resources/conf/${environment}</directory>
+                <targetPath></targetPath>
+                <includes>
+                    <include>application.properties</include>
+                    <include>logback.xml</include>
+                    <include>quartz.properties</include>
+                    <include>email-alarm.properties</include>
+                    <include>email-epay.properties</include>
+                </includes>
+            </resource>
+            <resource>
+                <directory>lib</directory>
+                <targetPath>../e-payment-api-0.0.1-SNAPSHOT\WEB-INF\lib</targetPath>
+                <includes>
+                    <include>e-payment-core-0.0.3-SNAPSHOT.jar</include>
+		    <include>zbensoft-license-1.0.jar</include>
+                </includes>
+            </resource>
+        </resources>-->
+		<plugins>
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<configuration>
+				</configuration>
+			<!-- 使用内部tomcat直接运行 打包需要增加 Start-->
+				<executions>
+                        <execution>
+                            <goals>
+                                <goal>repackage</goal>
+                            </goals>
+                        </execution>
+               </executions> 
+	       	<!-- 使用内部tomcat直接运行 打包需要增加 End-->
+			</plugin>
+        <plugin>  
+            <groupId>org.codehaus.mojo</groupId>  
+            <artifactId>build-helper-maven-plugin</artifactId>  
+            <version>1.4</version>  
+            <executions>  
+                <execution>  
+                    <id>add-source</id>  
+                    <phase>generate-sources</phase>  
+                    <goals>  
+                        <goal>add-source</goal>  
+                    </goals>  
+                    <configuration>  
+                        <sources>  
+                            <source>${basedir}/src/main/job</source>  
+                        </sources>  
+                    </configuration>  
+                </execution>  
+            </executions>  
+        </plugin>  
+		</plugins>
+	</build>
+	<packaging>jar</packaging>
+</project>

@@ -1,0 +1,521 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    
+    <contextName>e-payment</contextName>
+    <property name="LOG_PATH" value="/data/master/zben/log/01" />
+    <!--设置系统日志目录-->
+    <property name="APPDIR" value="e-payment" />
+     <!--设置CDR目录-->
+     <property name="CDR_PATH" value="/data/master/zben/cdr/01" />
+
+    <!-- 日志记录器，滚动记录 -->
+    <appender name="FILEERROR" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/ERROR.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/ERROR-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>error</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 日志记录器，滚动记录 -->
+    <appender name="FILEWARN" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/WARN.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/WARN-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>warn</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <!-- 日志记录器，滚动记录 -->
+    <appender name="FILEINFO" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/INFO.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/INFO-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    
+    <!-- 日志记录器，滚动记录 -->
+    <appender name="FILEDEBUG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/DEBUG.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/DEBUG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>debug</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <!--encoder 默认配置为PatternLayoutEncoder-->
+        <encoder>
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!--此日志appender是为开发使用，只配置最底级别，控制台输出的日志级别是大于或等于此级别的日志信息-->
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>info</level>
+        </filter>
+    </appender>
+    
+
+    <logger name="org.springframework" level="WARN" />
+    <logger name="org.hibernate" level="WARN" />
+    <logger name="com.zbensoft.e.payment.db.domain" level="DEBUG"/>
+    
+    
+    <!-- 自定义日志类:定义日志配置(文件配置) -->
+    <appender name="ALARM_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/ALARM_LOG.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/ALARM_LOG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+             <!--<onMismatch>DENY</onMismatch> -->
+        </filter>
+    </appender>
+    <appender name="SUBMIT_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/SUBMIT_LOG.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/SUBMIT_LOG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+             <!--<onMismatch>DENY</onMismatch> -->
+        </filter>
+    </appender>
+    <appender name="BANK_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/BANK_LOG.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/BANK_LOG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+             <!--<onMismatch>DENY</onMismatch> -->
+        </filter>
+    </appender>
+    <appender name="BOOKKEEPING_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/BOOKKEEPING_LOG.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/BOOKKEEPING_LOG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+             <!--<onMismatch>DENY</onMismatch> -->
+        </filter>
+    </appender>
+    <appender name="CDR_LOG" class="com.zbensoft.e.payment.common.log.MinuteLogAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${CDR_PATH}/${APPDIR}/CDR/CDR.cdr</file>
+        <min>10</min>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${CDR_PATH}/${APPDIR}/CDR/CDR_%d{yyyy-MM-dd-HH-mm}.cdr.gz</fileNamePattern>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+    </appender>
+    <appender name="ERROR_HANDLING_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/ERROR_HANDLING_LOG.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/ERROR_HANDLING_LOG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+             <!--<onMismatch>DENY</onMismatch> -->
+        </filter>
+    </appender>
+    <appender name="RECONCILIATION_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/RECONCILIATION_LOG.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/RECONCILIATION_LOG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+             <!--<onMismatch>DENY</onMismatch> -->
+        </filter>
+    </appender>
+    <appender name="TASK_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/TASK_LOG.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/TASK_LOG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+             <!--<onMismatch>DENY</onMismatch> -->
+        </filter>
+    </appender>
+    <appender name="MONITOR_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/MONITOR_LOG.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/MONITOR_LOG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+			<!--<onMismatch>DENY</onMismatch> -->
+        </filter>
+    </appender>
+	<appender name="BI_LOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 正在记录的日志文件的路径及文件名 -->
+		<file>${LOG_PATH}/${APPDIR}/BI_LOG.log</file>
+		<!-- 日志记录器的滚动策略，按大小记录 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/BI_LOG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+		</rollingPolicy>
+		<!-- 追加方式记录日志 -->
+		<append>true</append>
+		<!-- 日志文件的格式 -->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level Line:%-3L - %msg%n
+			</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+		<!-- 此日志文件只记录info级别的 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>info</level>
+			<onMatch>ACCEPT</onMatch>
+			<!--<onMismatch>DENY</onMismatch> -->
+		</filter>
+	</appender>
+	<appender name="ACCOUNT_LOG"
+		class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<!-- 正在记录的日志文件的路径及文件名 -->
+		<file>${LOG_PATH}/${APPDIR}/ACCOUNT_LOG.log</file>
+		<!-- 日志记录器的滚动策略，按大小记录 -->
+		<rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+			<fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/ACCOUNT_LOG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+		</rollingPolicy>
+		<!-- 追加方式记录日志 -->
+		<append>true</append>
+		<!-- 日志文件的格式 -->
+		<encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+			<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level Line:%-3L - %msg%n
+			</pattern>
+			<charset>utf-8</charset>
+		</encoder>
+		<!-- 此日志文件只记录info级别的 -->
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">
+			<level>info</level>
+			<onMatch>ACCEPT</onMatch>
+			<!--<onMismatch>DENY</onMismatch> -->
+		</filter>
+	</appender>
+	  <appender name="DJ_ENCRYPTION_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/DJ_ENCRYPTION_LOG.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/DJ_ENCRYPTION_LOG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+             <!--<onMismatch>DENY</onMismatch> -->
+        </filter>
+    </appender>
+    
+    <appender name="NETWORK_MONITOR_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/NETWORK_MONITOR_LOG.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/NETWORK_MONITOR_LOG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+             <!--<onMismatch>DENY</onMismatch> -->
+        </filter>
+    </appender>
+    
+    <appender name="APP_LOG" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <!-- 正在记录的日志文件的路径及文件名 -->
+        <file>${LOG_PATH}/${APPDIR}/APP_LOG.log</file>
+        <!-- 日志记录器的滚动策略，按大小记录 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${APPDIR}/%d{yyyy-MM-dd}/APP_LOG-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <maxHistory>180</maxHistory>
+            <maxFileSize>250MB</maxFileSize>
+        </rollingPolicy>
+        <!-- 追加方式记录日志 -->
+        <append>true</append>
+        <!-- 日志文件的格式 -->
+        <encoder class="ch.qos.logback.classic.encoder.PatternLayoutEncoder">
+            <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} %-5level %logger Line:%-3L - %msg%n</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+        <!-- 此日志文件只记录info级别的 -->
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>info</level>
+            <onMatch>ACCEPT</onMatch>
+             <!--<onMismatch>DENY</onMismatch> -->
+        </filter>
+    </appender>
+    
+    
+    <!-- 自定义日志类:定义logger，并引入自定义日志配置 -->
+    <logger name="com.zbensoft.e.payment.api.log.ALARM_LOG" level="INFO" additivity="false">
+    	<appender-ref ref="ALARM_LOG"/>
+    </logger>
+    <logger name="com.zbensoft.e.payment.api.log.SUBMIT_LOG" level="INFO" additivity="false">
+    	<appender-ref ref="SUBMIT_LOG"/>
+    </logger>
+    <logger name="com.zbensoft.e.payment.api.log.BANK_LOG" level="INFO" additivity="false">
+    	<appender-ref ref="BANK_LOG"/>
+    </logger>
+    <logger name="com.zbensoft.e.payment.api.log.BOOKKEEPING_LOG" level="INFO" additivity="false">
+    	<appender-ref ref="BOOKKEEPING_LOG"/>
+    </logger>
+    <logger name="com.zbensoft.e.payment.api.log.CDR_LOG" level="INFO" additivity="false">
+    	<appender-ref ref="CDR_LOG"/>
+    </logger>
+    <logger name="com.zbensoft.e.payment.api.log.ERROR_HANDLING_LOG" level="INFO" additivity="false">
+    	<appender-ref ref="ERROR_HANDLING_LOG"/>
+    </logger>
+    <logger name="com.zbensoft.e.payment.api.log.RECONCILIATION_LOG" level="INFO" additivity="false">
+    	<appender-ref ref="RECONCILIATION_LOG"/>
+    </logger>
+    <logger name="com.zbensoft.e.payment.api.log.TASK_LOG" level="INFO" additivity="false">
+    	<appender-ref ref="TASK_LOG"/>
+    </logger>
+    <logger name="com.zbensoft.e.payment.api.log.MONITOR_LOG" level="INFO" additivity="false">
+    	<appender-ref ref="MONITOR_LOG"/>
+    </logger>
+	<logger name="com.zbensoft.e.payment.api.log.BI_LOG" level="INFO"
+		additivity="false">
+		<appender-ref ref="BI_LOG" />
+	</logger>
+	<logger name="com.zbensoft.e.payment.api.log.ACCOUNT_LOG" level="INFO"
+		additivity="false">
+		<appender-ref ref="ACCOUNT_LOG" />
+	</logger>
+	<logger name="com.zbensoft.e.payment.api.log.DJ_ENCRYPTION_LOG" level="INFO"
+		additivity="false">
+		<appender-ref ref="DJ_ENCRYPTION_LOG" />
+	</logger>
+	<logger name="com.zbensoft.e.payment.api.log.NETWORK_MONITOR_LOG" level="INFO"
+		additivity="false">
+		<appender-ref ref="NETWORK_MONITOR_LOG" />
+	</logger>
+	<logger name="com.zbensoft.e.payment.api.log.APP_LOG" level="INFO"
+		additivity="false">
+		<appender-ref ref="APP_LOG" />
+	</logger>
+	
+
+    <!-- 生产环境下，将此级别配置为适合的级别，以免日志文件太多或影响程序性能 -->
+    <root level="FILEDEBUG">
+        <appender-ref ref="FILEERROR" />
+        <appender-ref ref="FILEWARN" />
+        <appender-ref ref="FILEINFO" />
+
+        <!-- 生产环境将请stdout,testfile去掉 -->
+        <appender-ref ref="FILEDEBUG" />
+        <!--<appender-ref ref="STDOUT" />-->
+    </root>
+    
+    <!-- debug,info,warn,error -->
+</configuration>

@@ -1,0 +1,4 @@
+
+
+keytool -exportcert -alias epayment -file epaymentkeystore-server-public.cer -keystore epaymentkeystore.jks -storepass https1116Zben
+keytool -importcert -keystore epaymentkeystore-client-truststore.jks -alias epayment-servercert -file epaymentkeystore-server-public.cer -storepass https1116Zben -noprompt

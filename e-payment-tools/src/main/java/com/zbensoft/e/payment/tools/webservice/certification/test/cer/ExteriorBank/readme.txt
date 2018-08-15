@@ -1,0 +1,4 @@
+client name:epayment-webservice-clientkey-ExteriorBank
+client password:webserviceExteriorBank
+server name:epayment-webservice-servercert
+server password:webservice1116Zben

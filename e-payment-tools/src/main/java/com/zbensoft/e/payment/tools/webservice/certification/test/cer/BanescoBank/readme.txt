@@ -1,0 +1,4 @@
+client name:epayment-webservice-clientkey-BanescoBank
+client password:webserviceBanescoBank
+server name:epayment-webservice-servercert
+server password:webservice1116Zben

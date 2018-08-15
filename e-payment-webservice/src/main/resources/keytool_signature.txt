@@ -1,0 +1,87 @@
+测试环境key生成
+cd c:\Java\jdk1.8.0_65\bin
+生成服务端key
+keytool -genkeypair -alias epayment-webservice-serverkey -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=venezuela" -keyalg RSA -keypass webservice1116Zben -keystore e:\tmp\webservice\encryption-server-keystore.jks -storepass webservice1116Zben -validity 36000 -keysize 2048
+
+生成客户端key和证书
+keytool -genkeypair -alias epayment-webservice-clientkey -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=venezuela" -keyalg RSA -keypass webservice1116Zben -keystore e:\tmp\webservice\encryption-client-keystore.jks -storepass webservice1116Zben -validity 36000 -keysize 2048
+
+导出服务端证书
+keytool -exportcert -alias epayment-webservice-serverkey -file e:\tmp\webservice\encryption-server-public.cer -keystore e:\tmp\webservice\encryption-server-keystore.jks -storepass webservice1116Zben
+
+导出客户端证书
+keytool -exportcert -alias epayment-webservice-clientkey -file e:\tmp\webservice\encryption-client-public.cer -keystore e:\tmp\webservice\encryption-client-keystore.jks -storepass webservice1116Zben
+
+将服务器证书导入客户端信任
+keytool -importcert -keystore e:\tmp\webservice\encryption-client-truststore.jks -alias epayment-webservice-servercert -file e:\tmp\webservice\encryption-server-public.cer -storepass webservice1116Zben -noprompt
+
+将客户端证书导入服务器信任
+keytool -importcert -keystore e:\tmp\webservice\encryption-server-truststore.jks -alias epayment-webservice-clientcert -file e:\tmp\webservice\encryption-client-public.cer -storepass webservice1116Zben -noprompt
+
+
+私钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore e:\tmp\webservice\encryption-client-keystore.jks -srcstoretype JKS -srcstorepass webservice1116Zben -destkeystore e:\tmp\webservice\encryption-client-keystore.p12 -deststoretype PKCS12 -deststorepass webservice1116Zben
+
+
+服务器公钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore e:\tmp\webservice\encryption-client-truststore.jks -srcstoretype JKS -srcstorepass webservice1116Zben -destkeystore e:\tmp\webservice\encryption-client-truststore.p12 -deststoretype PKCS12 -deststorepass webservice1116Zben
+
+查看p12证书内容
+keytool -printcert -file e:\tmp\webservice\encryption-server-public.cer -keypass webservice1116Zben -storepass webservice1116Zben
+查看jks服务器信任证书内容(所有银行的都在这可以查看)
+keytool -list -v -keystore e:\tmp\webservice\encryption-server-truststore.jks -keypass webservice1116Zben -storepass webservice1116Zben
+删除服务器信任证书中的证书（慎重操作，可以删除特定银行在服务器端的信任证书）
+keytool -delete -alias epayment-webservice-clientcert-xxx -keystore e:\tmp\webservice\encryption-server-truststore.jks -keypass webservice1116Zben -storepass webservice1116Zben
+
+
+
+
+treasure:
+生成客户端key和证书
+keytool -genkeypair -alias epayment-webservice-clientkey-treasure -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=venezuela" -keyalg RSA -keypass webservicetreasure -keystore e:\tmp\webservice\encryption-client-keystore-treasure.jks -storepass webservicetreasure -validity 36000 -keysize 2048
+导出客户端证书
+keytool -exportcert -alias epayment-webservice-clientkey-treasure -file e:\tmp\webservice\encryption-client-public-treasure.cer -keystore e:\tmp\webservice\encryption-client-keystore-treasure.jks -storepass webservicetreasure
+将客户端证书导入服务器信任
+keytool -importcert -keystore e:\tmp\webservice\encryption-server-truststore.jks -alias epayment-webservice-clientcert-treasure -file e:\tmp\webservice\encryption-client-public-treasure.cer -storepass webservice1116Zben -noprompt
+私钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore e:\tmp\webservice\encryption-client-keystore-treasure.jks -srcstoretype JKS -srcstorepass webservicetreasure -destkeystore e:\tmp\webservice\encryption-client-keystore-treasure.p12 -deststoretype PKCS12 -deststorepass webservicetreasure
+
+bicentennial:
+生成客户端key和证书
+keytool -genkeypair -alias epayment-webservice-clientkey-bicentennial -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=venezuela" -keyalg RSA -keypass webservicebicentennial -keystore e:\tmp\webservice\encryption-client-keystore-bicentennial.jks -storepass webservicebicentennial -validity 36000 -keysize 2048
+导出客户端证书
+keytool -exportcert -alias epayment-webservice-clientkey-bicentennial -file e:\tmp\webservice\encryption-client-public-bicentennial.cer -keystore e:\tmp\webservice\encryption-client-keystore-bicentennial.jks -storepass webservicebicentennial
+将客户端证书导入服务器信任
+keytool -importcert -keystore e:\tmp\webservice\encryption-server-truststore.jks -alias epayment-webservice-clientcert-bicentennial -file e:\tmp\webservice\encryption-client-public-bicentennial.cer -storepass webservice1116Zben -noprompt
+私钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore e:\tmp\webservice\encryption-client-keystore-bicentennial.jks -srcstoretype JKS -srcstorepass webservicebicentennial -destkeystore e:\tmp\webservice\encryption-client-keystore-bicentennial.p12 -deststoretype PKCS12 -deststorepass webservicebicentennial
+
+banfanb:
+生成客户端key和证书
+keytool -genkeypair -alias epayment-webservice-clientkey-banfanb -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=venezuela" -keyalg RSA -keypass webservicebanfanb -keystore e:\tmp\webservice\encryption-client-keystore-banfanb.jks -storepass webservicebanfanb -validity 36000 -keysize 2048
+导出客户端证书
+keytool -exportcert -alias epayment-webservice-clientkey-banfanb -file e:\tmp\webservice\encryption-client-public-banfanb.cer -keystore e:\tmp\webservice\encryption-client-keystore-banfanb.jks -storepass webservicebanfanb
+将客户端证书导入服务器信任
+keytool -importcert -keystore e:\tmp\webservice\encryption-server-truststore.jks -alias epayment-webservice-clientcert-banfanb -file e:\tmp\webservice\encryption-client-public-banfanb.cer -storepass webservice1116Zben -noprompt
+私钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore e:\tmp\webservice\encryption-client-keystore-banfanb.jks -srcstoretype JKS -srcstorepass webservicebanfanb -destkeystore e:\tmp\webservice\encryption-client-keystore-banfanb.p12 -deststoretype PKCS12 -deststorepass webservicebanfanb
+
+agricultural:
+生成客户端key和证书
+keytool -genkeypair -alias epayment-webservice-clientkey-agricultural -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=venezuela" -keyalg RSA -keypass webserviceagricultural -keystore e:\tmp\webservice\encryption-client-keystore-agricultural.jks -storepass webserviceagricultural -validity 36000 -keysize 2048
+导出客户端证书
+keytool -exportcert -alias epayment-webservice-clientkey-agricultural -file e:\tmp\webservice\encryption-client-public-agricultural.cer -keystore e:\tmp\webservice\encryption-client-keystore-agricultural.jks -storepass webserviceagricultural
+将客户端证书导入服务器信任
+keytool -importcert -keystore e:\tmp\webservice\encryption-server-truststore.jks -alias epayment-webservice-clientcert-agricultural -file e:\tmp\webservice\encryption-client-public-agricultural.cer -storepass webservice1116Zben -noprompt
+私钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore e:\tmp\webservice\encryption-client-keystore-agricultural.jks -srcstoretype JKS -srcstorepass webserviceagricultural -destkeystore e:\tmp\webservice\encryption-client-keystore-agricultural.p12 -deststoretype PKCS12 -deststorepass webserviceagricultural
+
+venezuela:
+生成客户端key和证书
+keytool -genkeypair -alias epayment-webservice-clientkey-venezuela -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=venezuela" -keyalg RSA -keypass webservicevenezuela -keystore e:\tmp\webservice\encryption-client-keystore-venezuela.jks -storepass webservicevenezuela -validity 36000 -keysize 2048
+导出客户端证书
+keytool -exportcert -alias epayment-webservice-clientkey-venezuela -file e:\tmp\webservice\encryption-client-public-venezuela.cer -keystore e:\tmp\webservice\encryption-client-keystore-venezuela.jks -storepass webservicevenezuela
+将客户端证书导入服务器信任
+keytool -importcert -keystore e:\tmp\webservice\encryption-server-truststore.jks -alias epayment-webservice-clientcert-venezuela -file e:\tmp\webservice\encryption-client-public-venezuela.cer -storepass webservice1116Zben -noprompt
+私钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore e:\tmp\webservice\encryption-client-keystore-venezuela.jks -srcstoretype JKS -srcstorepass webservicevenezuela -destkeystore e:\tmp\webservice\encryption-client-keystore-venezuela.p12 -deststoretype PKCS12 -deststorepass webservicevenezuela

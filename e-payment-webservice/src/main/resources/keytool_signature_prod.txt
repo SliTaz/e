@@ -1,0 +1,88 @@
+生产环境key生成
+cd c:\Java\jdk1.8.0_65\bin
+生成服务端key
+keytool -genkeypair -alias epayment-webservice-serverkey -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=venezuela" -keyalg RSA -keypass webservice911epay -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-server-keystore.jks -storepass webservice911epay -validity 36000 -keysize 2048
+
+生成客户端key和证书
+keytool -genkeypair -alias epayment-webservice-clientkey -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=venezuela" -keyalg RSA -keypass webservice911epay -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore.jks -storepass webservice911epay -validity 36000 -keysize 2048
+
+导出服务端证书
+keytool -exportcert -alias epayment-webservice-serverkey -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-server-public.cer -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-server-keystore.jks -storepass webservice911epay
+
+导出客户端证书
+keytool -exportcert -alias epayment-webservice-clientkey -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-public.cer -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore.jks -storepass webservice911epay
+
+将服务器证书导入客户端信任
+keytool -importcert -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-truststore.jks -alias epayment-webservice-servercert -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-server-public.cer -storepass webservice911epay -noprompt
+
+将客户端证书导入服务器信任
+#keytool -importcert -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-server-truststore.jks -alias epayment-webservice-clientcert -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-public.cer -storepass webservice911epay -noprompt
+
+
+私钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore.jks -srcstoretype JKS -srcstorepass webservice911epay -destkeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore.p12 -deststoretype PKCS12 -deststorepass webservice911epay
+
+
+服务器公钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-truststore.jks -srcstoretype JKS -srcstorepass webservice911epay -destkeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-truststore.p12 -deststoretype PKCS12 -deststorepass webservice911epay
+
+查看p12证书内容
+keytool -printcert -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-server-public.cer -keypass webservice911epay -storepass webservice911epay
+查看jks服务器信任证书内容(所有银行的都在这可以查看)
+keytool -list -v -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-server-truststore.jks -keypass webservice911epay -storepass webservice911epay
+删除服务器信任证书中的证书（慎重操作，可以删除特定银行在服务器端的信任证书）
+keytool -delete -alias epayment-webservice-clientcert-xxx -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-server-truststore.jks -keypass webservice911epay -storepass webservice911epay
+
+
+
+
+treasure:
+生成客户端key和证书
+keytool -genkeypair -alias epayment-webservice-clientkey-treasure -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=venezuela" -keyalg RSA -keypass webservicetreasure119 -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-treasure.jks -storepass webservicetreasure119 -validity 36000 -keysize 2048
+导出客户端证书
+keytool -exportcert -alias epayment-webservice-clientkey-treasure -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-public-treasure.cer -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-treasure.jks -storepass webservicetreasure119
+将客户端证书导入服务器信任
+keytool -importcert -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-server-truststore.jks -alias epayment-webservice-clientcert-treasure -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-public-treasure.cer -storepass webservice911epay -noprompt
+私钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-treasure.jks -srcstoretype JKS -srcstorepass webservicetreasure119 -destkeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-treasure.p12 -deststoretype PKCS12 -deststorepass webservicetreasure119
+
+venezuela:
+生成客户端key和证书
+keytool -genkeypair -alias epayment-webservice-clientkey-venezuela -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=venezuela" -keyalg RSA -keypass webservicevenezuela119 -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-venezuela.jks -storepass webservicevenezuela119 -validity 36000 -keysize 2048
+导出客户端证书
+keytool -exportcert -alias epayment-webservice-clientkey-venezuela -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-public-venezuela.cer -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-venezuela.jks -storepass webservicevenezuela119
+将客户端证书导入服务器信任
+keytool -importcert -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-server-truststore.jks -alias epayment-webservice-clientcert-venezuela -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-public-venezuela.cer -storepass webservice911epay -noprompt
+私钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-venezuela.jks -srcstoretype JKS -srcstorepass webservicevenezuela119 -destkeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-venezuela.p12 -deststoretype PKCS12 -deststorepass webservicevenezuela119
+
+
+bicentennial:
+生成客户端key和证书
+keytool -genkeypair -alias epayment-webservice-clientkey-bicentennial -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=bicentennial" -keyalg RSA -keypass webservicebicentennial119 -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-bicentennial.jks -storepass webservicebicentennial119 -validity 36000 -keysize 2048
+导出客户端证书
+keytool -exportcert -alias epayment-webservice-clientkey-bicentennial -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-public-bicentennial.cer -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-bicentennial.jks -storepass webservicebicentennial119
+将客户端证书导入服务器信任
+keytool -importcert -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-server-truststore.jks -alias epayment-webservice-clientcert-bicentennial -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-public-bicentennial.cer -storepass webservice911epay -noprompt
+私钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-bicentennial.jks -srcstoretype JKS -srcstorepass webservicebicentennial119 -destkeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-bicentennial.p12 -deststoretype PKCS12 -deststorepass webservicebicentennial119
+
+banfanb:
+生成客户端key和证书
+keytool -genkeypair -alias epayment-webservice-clientkey-banfanb -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=banfanb" -keyalg RSA -keypass webservicebanfanb119 -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-banfanb.jks -storepass webservicebanfanb119 -validity 36000 -keysize 2048
+导出客户端证书
+keytool -exportcert -alias epayment-webservice-clientkey-banfanb -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-public-banfanb.cer -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-banfanb.jks -storepass webservicebanfanb119
+将客户端证书导入服务器信任
+keytool -importcert -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-server-truststore.jks -alias epayment-webservice-clientcert-banfanb -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-public-banfanb.cer -storepass webservice911epay -noprompt
+私钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-banfanb.jks -srcstoretype JKS -srcstorepass webservicebanfanb119 -destkeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-banfanb.p12 -deststoretype PKCS12 -deststorepass webservicebanfanb119
+
+agricultural:
+生成客户端key和证书
+keytool -genkeypair -alias epayment-webservice-clientkey-agricultural -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=agricultural" -keyalg RSA -keypass webserviceagricultural119 -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-agricultural.jks -storepass webserviceagricultural119 -validity 36000 -keysize 2048
+导出客户端证书
+keytool -exportcert -alias epayment-webservice-clientkey-agricultural -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-public-agricultural.cer -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-agricultural.jks -storepass webserviceagricultural119
+将客户端证书导入服务器信任
+keytool -importcert -keystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-server-truststore.jks -alias epayment-webservice-clientcert-agricultural -file E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-public-agricultural.cer -storepass webservice911epay -noprompt
+私钥，转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-agricultural.jks -srcstoretype JKS -srcstorepass webserviceagricultural119 -destkeystore E:\项目\2017-02-CLAP\银行接口\certification_prod\encryption-client-keystore-agricultural.p12 -deststoretype PKCS12 -deststorepass webserviceagricultural119

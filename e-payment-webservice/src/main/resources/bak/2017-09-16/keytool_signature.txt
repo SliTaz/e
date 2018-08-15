@@ -1,0 +1,29 @@
+cd c:\Java\jdk1.8.0_65\bin
+生成服务端key
+keytool -genkeypair -alias epayment-webservice-serverkey -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=venezuela" -keyalg RSA -keypass webservice1116Zben -keystore e:\tmp\webservice\encryption-server-keystore.jks -storepass webservice1116Zben -validity 36000 -keysize 2048
+
+生成客户端key和证书
+keytool -genkeypair -alias epayment-webservice-clientkey -dname "CN=epay,OU=cantv,O=cantv,L=caracas,ST=caracas,C=venezuela" -keyalg RSA -keypass webservice1116Zben -keystore e:\tmp\webservice\encryption-client-keystore.jks -storepass webservice1116Zben -validity 36000 -keysize 2048
+
+导出服务端证书
+keytool -exportcert -alias epayment-webservice-serverkey -file e:\tmp\webservice\encryption-server-public.cer -keystore e:\tmp\webservice\encryption-server-keystore.jks -storepass webservice1116Zben
+
+导出客户端证书
+keytool -exportcert -alias epayment-webservice-clientkey -file e:\tmp\webservice\encryption-client-public.cer -keystore e:\tmp\webservice\encryption-client-keystore.jks -storepass webservice1116Zben
+
+将服务器证书导入客户端信任
+keytool -importcert -keystore e:\tmp\webservice\encryption-client-truststore.jks -alias epayment-webservice-servercert -file e:\tmp\webservice\encryption-server-public.cer -storepass webservice1116Zben -noprompt
+
+将客户端证书导入服务器信任
+keytool -importcert -keystore e:\tmp\webservice\encryption-server-truststore.jks -alias epayment-webservice-clientcert -file e:\tmp\webservice\encryption-client-public.cer -storepass webservice1116Zben -noprompt
+
+
+转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore e:\tmp\webservice\encryption-client-keystore.jks -srcstoretype JKS -srcstorepass webservice1116Zben -destkeystore e:\tmp\webservice\encryption-client-keystore.p12 -deststoretype PKCS12 -deststorepass webservice1116Zben
+
+
+转换为p12，供c#客户端调用
+keytool -importkeystore -srckeystore e:\tmp\webservice\encryption-client-truststore.jks -srcstoretype JKS -srcstorepass webservice1116Zben -destkeystore e:\tmp\webservice\encryption-client-truststore.p12 -deststoretype PKCS12 -deststorepass webservice1116Zben
+
+查看证书内容
+keytool -printcert -file e:\tmp\webservice\webservice-2017-08-21\encryption-server-public.cer -keypass webservice1116Zben -storepass webservice1116Zben

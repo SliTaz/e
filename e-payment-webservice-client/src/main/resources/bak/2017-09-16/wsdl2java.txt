@@ -1,0 +1,1 @@
+wsdl2java -autoNameResolution -p org.e.payment.webservice.client.vo.bankTran -encoding UTF-8 -d e:\\tmp\\src -client http://localhost:9095/webservice/bankTran?wsdl
